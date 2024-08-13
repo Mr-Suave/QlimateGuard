@@ -76,6 +76,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.white),
+                      //booyeah
                       ),
                     SizedBox(height:10.0),
                     Container(
