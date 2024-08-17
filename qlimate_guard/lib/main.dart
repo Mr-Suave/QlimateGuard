@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:qlimate_guard/splash_screen.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:qlimate_guard/volunteer.dart';
 import 'carbon_footprint.dart';
 import 'get_help.dart';
 import 'aqi_calculator.dart';
 import 'weather.dart';
+import 'volunteer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,19 +64,39 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 20),
             SizedBox(
               width: 500,
-              height: 500,
+              height: 410,
               child: GridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 20.0,
                 mainAxisSpacing: 20.0,
-                padding: EdgeInsets.all(20.0), 
+                padding: EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0), 
                 children: [
                   buildImage(context, 'assets/aqi.png',1 ),
                   buildImage(context, 'assets/cf.png',2 ),
                   buildImage(context, 'assets/help.png',3 ),
                   buildImage(context, 'assets/weather.png',4 ),
                 ],),),
-                SizedBox(height: 10,),
+                SizedBox(
+                  width: 380,
+                  height: 180,
+                  child: InkWell(
+                      splashColor: Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/Volunteer.png'),
+                            fit: BoxFit.cover,),
+                            borderRadius: BorderRadius.circular(8.0)),),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Volunteer()),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 20,),
                  FutureBuilder<String>(
               future: getMsg(), // The asynchronous function
               builder: (context, snapshot) {
@@ -90,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     snapshot.data!,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
                     ),
