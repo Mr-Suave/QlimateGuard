@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:qlimate_guard/splash_screen.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:qlimate_guard/volunteer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'carbon_footprint.dart';
 import 'get_help.dart';
 import 'aqi_calculator.dart';
 import 'weather.dart';
 import 'volunteer.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
   
 }
