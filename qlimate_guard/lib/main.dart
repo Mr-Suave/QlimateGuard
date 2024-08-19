@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            // padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -75,21 +75,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                   width: 500,
                   height: 400,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GridView.count(
-                      physics: NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 20.0,
-                      mainAxisSpacing: 20.0,
-                      //padding: EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0), 
-                      children: [
-                        buildImage(context, 'assets/aqi.png',1 ),
-                        buildImage(context, 'assets/cf.png',2 ),
-                        buildImage(context, 'assets/help.png',3 ),
-                        buildImage(context, 'assets/weather.png',4 ),
-                      ],),
-                  ),),
+                  child: GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 20.0,
+                    mainAxisSpacing: 20.0,
+                    //padding: EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0), 
+                    children: [
+                      buildImage(context, 'assets/aqi.png',1 ),
+                      buildImage(context, 'assets/cf.png',2 ),
+                      buildImage(context, 'assets/help.png',3 ),
+                      buildImage(context, 'assets/weather.png',4 ),
+                    ],),),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.95,
                       height: 150,
