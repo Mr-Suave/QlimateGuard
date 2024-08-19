@@ -1,7 +1,12 @@
 import "dart:ui";
+
+import "package:speech_to_text/speech_to_text.dart";
+import "./voulunteer_page.dart";
+
 import "hospital.dart";
 import "firestation.dart";
 import "./fire_station_login.dart";
+
 import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:geocoding/geocoding.dart";
@@ -16,14 +21,49 @@ class GetHelpUi extends StatefulWidget {
 }
 
 class _GetHelpUi extends State<GetHelpUi> {
+  final SpeechToText _speechToText = SpeechToText();
+
+  bool _speechEnabled = false;
+  String _speechGot = "";
+
+  void getListener() async {
+    _speechEnabled = await _speechToText.initialize();
+  }
+
+  void _getAudioInput() async {
+    if (_speechToText.isNotListening) {
+      await _speechToText.listen(onResult: _onObtainingResult);
+    }
+    setState(() {});
+  }
+
+  void _stopListening() async {
+    await _speechToText.stop();
+    setState(() {});
+  }
+
+  void _onObtainingResult(result) async {
+    setState(() {
+      _speechGot = "${result.recognizedWords}";
+      // print("${result.recognizedWords}");
+      if (_speechGot == "call ambulance") {
+        dialANumber("108");
+      }
+      if (_speechGot == "call fire engine") {
+        dialANumber("101");
+      }
+    });
+  }
+
   //invoke dialer
   dialANumber(String phn) async {
     final Uri dialNumber = Uri(scheme: "tel", path: phn);
     await launchUrl(dialNumber);
   }
 
-  String fireStationKey = "IITTirupati";
+  String fireStationKey = "2015";
   TextEditingController keycontroller = TextEditingController();
+  bool _hideText = true;
   late List<Placemark> getLocalityInfo;
   late String city = "";
   late String state = "";
@@ -32,6 +72,57 @@ class _GetHelpUi extends State<GetHelpUi> {
   late Future<Map<String, dynamic>> firestations = Future.value({});
 
   late Map<String, String> fireStationInfo = {};
+
+  void _displayPasswordDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: const Text("Enter the security Key"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: keycontroller,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: _hideText,
+                    decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _hideText = !_hideText;
+                              });
+                            },
+                            icon: Icon(_hideText
+                                ? Icons.visibility_off
+                                : Icons.visibility))),
+                  )
+                ],
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      if (keycontroller.text == fireStationKey) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()));
+                        keycontroller.clear();
+                      } else {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Enterd Wrong key")));
+                        keycontroller.clear();
+                      }
+                    },
+                    child: const Text("Enter Fire Station Data"))
+              ],
+            );
+          });
+        });
+  }
 
   //get user pincode
   Future<String> _getUserPincode() async {
@@ -56,6 +147,7 @@ class _GetHelpUi extends State<GetHelpUi> {
           city = getLocalityInfo[0].locality!;
           state = getLocalityInfo[0].administrativeArea!;
         });
+        print("The city obtained is:$city");
         return city;
       } else {
         setState(() {
@@ -74,6 +166,7 @@ class _GetHelpUi extends State<GetHelpUi> {
     _getUserPincode().then((_) {
       firestations = firestationInfo.searchUsingPincode(city, state);
     });
+    getListener();
   }
 
   @override
@@ -83,7 +176,11 @@ class _GetHelpUi extends State<GetHelpUi> {
         actions: [
           IconButton(
               onPressed: () {
-                setState(() {});
+                setState(() {
+                  hospital.getNearbyHospitals();
+                  firestations =
+                      firestationInfo.searchUsingPincode(city, state);
+                });
               },
               icon: const Icon(Icons.refresh))
         ],
@@ -97,7 +194,7 @@ class _GetHelpUi extends State<GetHelpUi> {
           ),
         ),
         elevation: 100,
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 24, 13, 122),
       ),
       body: Center(
         child: Padding(
@@ -155,7 +252,7 @@ class _GetHelpUi extends State<GetHelpUi> {
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: const Color.fromARGB(255, 255, 255, 255), width: 2),
+                              border: Border.all(color: Colors.pink, width: 2),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
@@ -164,18 +261,23 @@ class _GetHelpUi extends State<GetHelpUi> {
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return Center(
-                                          child: SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: const CircularProgressIndicator()),
-                                        );
-                                          
+                                      return const Center(
+                                        child: SizedBox(
+                                            height: 30,
+                                            width: 30,
+                                            child: CircularProgressIndicator()),
+                                      );
                                     }
                                     if (snapshot.hasError) {
                                       return Center(
                                         child: Text(snapshot.error.toString()),
                                       );
+                                    }
+                                    if (!snapshot.hasData ||
+                                        snapshot.data!.isEmpty) {
+                                      return const Center(
+                                          child: Text(
+                                              "Unable to fetch hospitals"));
                                     }
                                     final hospitalData = snapshot.data ?? [];
                                     return ListView.builder(
@@ -254,7 +356,7 @@ class _GetHelpUi extends State<GetHelpUi> {
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: const Color.fromARGB(255, 255, 255, 255), width: 2),
+                            border: Border.all(color: Colors.green, width: 2),
                           ),
                           child: Card(
                             child: FutureBuilder(
@@ -262,13 +364,11 @@ class _GetHelpUi extends State<GetHelpUi> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Center(
+                                  return const Center(
                                     child: SizedBox(
-                                      height: 10,
-                                      width: 10,
-                                      child: const CircularProgressIndicator(),
-                                          
-                                    ),
+                                        height: 30,
+                                        width: 30,
+                                        child: CircularProgressIndicator()),
                                   );
                                 } else if (snapshot.hasError) {
                                   return Center(
@@ -397,8 +497,7 @@ class _GetHelpUi extends State<GetHelpUi> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    _displayPasswordDialog(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.teal, // Background color
@@ -412,6 +511,35 @@ class _GetHelpUi extends State<GetHelpUi> {
                         color: Colors.black,
                       )),
                 ),
+                SizedBox(
+                  height: 150,
+                  width: 200,
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Text(_speechToText.isListening
+                            ? "Listening..."
+                            : _speechEnabled
+                                ? "Tap Microphone"
+                                : "Speech is not available"),
+                        const SizedBox(height: 16),
+                        FloatingActionButton(
+                          onPressed: _speechToText.isListening
+                              ? _stopListening
+                              : _getAudioInput,
+                          tooltip: "Listen",
+                          child: Icon(_speechToText.isNotListening
+                              ? Icons.mic_off
+                              : Icons.mic),
+                        ),
+                        Expanded(
+                            child: Text(_speechGot.isNotEmpty
+                                ? _speechGot
+                                : "No Speech Detected")),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),

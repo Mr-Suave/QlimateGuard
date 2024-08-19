@@ -11,8 +11,12 @@ class FirestationInfo {
       QuerySnapshot fsInfo =
           await collection.where("City", isEqualTo: city).get();
       if (fsInfo.docs.isEmpty) {
+        fsInfo = await collection.where("Locality", isEqualTo: city).get();
+      }
+      if (fsInfo.docs.isEmpty) {
         fsInfo = await collection.where("State", isEqualTo: state).get();
       }
+      
       if (fsInfo.docs.isNotEmpty) {
         var data = fsInfo.docs.first.data() as Map<String, dynamic>;
         return data;

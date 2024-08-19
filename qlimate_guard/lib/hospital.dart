@@ -46,7 +46,7 @@ class GetHospitalInfo {
       final opFromAPI = await http.get(Uri.parse(hosInfoURL));
       if (opFromAPI.statusCode == 200) {
         final data = jsonDecode(opFromAPI.body);
-        List<dynamic> hospitalData = data["elements"];
+        List<dynamic> hospitalData = data["elements"]??[];
         List<Map<String, String>> hospitals = [];
         //Avoid the hospitals like dental etc;
         List<String> unnecessary = [

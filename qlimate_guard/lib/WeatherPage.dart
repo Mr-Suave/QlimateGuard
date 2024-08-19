@@ -56,89 +56,100 @@ import './Icon.dart';
            },
          ),
        ),
-       body: Container(
-         decoration: BoxDecoration(
-           gradient: LinearGradient(
-             colors: [Color(0xFF63B8FF), Color(0xFF1E90FF)],
-             begin: Alignment.topLeft,
-             end: Alignment.topRight,
+       body: SingleChildScrollView(
+         child: Container(
+           decoration: BoxDecoration(
+             gradient: LinearGradient(
+               colors: [Color(0xFF63B8FF), Color(0xFF1E90FF)],
+               begin: Alignment.topLeft,
+               end: Alignment.topRight,
+             ),
            ),
-         ),
-         child:
-         _weather == null ? Center(child: CircularProgressIndicator())
-         :Column(
-           children: [
-             Expanded(
-               child: Center(
+           child:
+           _weather == null ? Center(child: CircularProgressIndicator())
+           :Column(
+             children: [
+              //  Expanded(
+                 Center(
+                   child: Column(
+                    
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                      SizedBox(
+                        height: 150,
+                      ),
+                       Text(
+                         _weather!.cityName,
+                         style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white),
+                       ),
+                       SizedBox(height: 8),
+                       Text(
+                         '${_weather!.temperature}°C',
+                         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                       ),
+                       SizedBox(height: 8),
+                       WeatherIconWidget(iconCode: _weather!.icon),
+                       SizedBox(height: 8),
+                       Text(
+                         _weather!.mainCondition,
+                         style: TextStyle(fontSize: 24, color: Colors.white),
+                       ),
+                       SizedBox(height: 8),
+                       Text(
+                         'lat: ${_weather!.latitude}°',
+                         style: TextStyle(fontSize: 18, color: Colors.white),
+                       ),
+                       Text(
+                         'lon: ${_weather!.longitude}°',
+                         style: TextStyle(fontSize: 18, color: Colors.white),
+                       ),
+                     ],
+                   ),
+                 ),
+              //  ),
+              SizedBox(
+                height: 80,
+              ),
+               Container(
+                width: 300,
+                
+                 padding: EdgeInsets.all(40),
+                 margin: EdgeInsets.only(bottom: 65),
+                 decoration: BoxDecoration(
+                   color: Colors.white.withOpacity(0.8),
+                   borderRadius: BorderRadius.circular(10),
+                 ),
                  child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
                    children: [
                      Text(
-                       _weather!.cityName,
-                       style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white),
+                       'Pressure: ${_weather!.pressure} hPa',
+                       style: TextStyle(fontSize: 20, color: Colors.black),
                      ),
                      SizedBox(height: 8),
                      Text(
-                       '${_weather!.temperature}°C',
-                       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
-                     ),
-                     SizedBox(height: 8),
-                     WeatherIconWidget(iconCode: _weather!.icon),
-                     SizedBox(height: 8),
-                     Text(
-                       _weather!.mainCondition,
-                       style: TextStyle(fontSize: 24, color: Colors.white),
+                       'Humidity: ${_weather!.humidity}%',
+                       style: TextStyle(fontSize: 20, color: Colors.black),
                      ),
                      SizedBox(height: 8),
                      Text(
-                       'lat: ${_weather!.latitude}°',
-                       style: TextStyle(fontSize: 18, color: Colors.white),
+                       'Max Temp: ${_weather!.temp_max}°C',
+                       style: TextStyle(fontSize: 20, color: Colors.black),
                      ),
+                     SizedBox(height: 8),
                      Text(
-                       'lon: ${_weather!.longitude}°',
-                       style: TextStyle(fontSize: 18, color: Colors.white),
+                       'Min Temp: ${_weather!.temp_min}°C',
+                       style: TextStyle(fontSize: 20, color: Colors.black),
+                     ),
+                     SizedBox(height: 8),
+                     Text(
+                       'Wind Speed: ${_weather!.windspeed} m/s',
+                       style: TextStyle(fontSize: 20, color: Colors.black),
                      ),
                    ],
                  ),
                ),
-             ),
-             Container(
-               padding: EdgeInsets.all(40),
-               margin: EdgeInsets.only(bottom: 35),
-               decoration: BoxDecoration(
-                 color: Colors.white.withOpacity(0.8),
-                 borderRadius: BorderRadius.circular(10),
-               ),
-               child: Column(
-                 children: [
-                   Text(
-                     'Pressure: ${_weather!.pressure} hPa',
-                     style: TextStyle(fontSize: 18, color: Colors.black),
-                   ),
-                   SizedBox(height: 8),
-                   Text(
-                     'Humidity: ${_weather!.humidity}%',
-                     style: TextStyle(fontSize: 18, color: Colors.black),
-                   ),
-                   SizedBox(height: 8),
-                   Text(
-                     'Max Temp: ${_weather!.temp_max}°C',
-                     style: TextStyle(fontSize: 18, color: Colors.black),
-                   ),
-                   SizedBox(height: 8),
-                   Text(
-                     'Min Temp: ${_weather!.temp_min}°C',
-                     style: TextStyle(fontSize: 18, color: Colors.black),
-                   ),
-                   SizedBox(height: 8),
-                   Text(
-                     'Wind Speed: ${_weather!.windspeed} m/s',
-                     style: TextStyle(fontSize: 18, color: Colors.black),
-                   ),
-                 ],
-               ),
-             ),
-           ],
+             ],
+           ),
          ),
        ),
      );

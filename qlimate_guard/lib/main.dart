@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplaschScreen(),
+      home: const  MyHomePage(),
     );
   }
 }
@@ -53,81 +53,96 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/homepage.png'),
+              fit: BoxFit.cover,
+          ),
+        )
+        ),
+      ),
       backgroundColor: Colors.black,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/homepage.png',
-              width: 500,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(height: 20),
-            SizedBox(
-              width: 500,
-              height: 410,
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20.0,
-                mainAxisSpacing: 20.0,
-                padding: EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0), 
-                children: [
-                  buildImage(context, 'assets/aqi.png',1 ),
-                  buildImage(context, 'assets/cf.png',2 ),
-                  buildImage(context, 'assets/help.png',3 ),
-                  buildImage(context, 'assets/weather.png',4 ),
-                ],),),
+        child: SingleChildScrollView(
+          child: Container(
+            // padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 20),
                 SizedBox(
-                  width: 380,
-                  height: 180,
-                  child: InkWell(
-                      splashColor: Colors.white.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/Volunteer.png'),
-                            fit: BoxFit.cover,),
-                            borderRadius: BorderRadius.circular(8.0)),),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Volunteer()),
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(height: 20,),
-                 FutureBuilder<String>(
-              future: getMsg(), // The asynchronous function
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(); // Show a loader while waiting
-                } else if (snapshot.hasError) {
-                  return Text(
-                    '',
-                    style: TextStyle(color: Colors.red, fontSize: 18),
-                  ); // Display an error message
-                } else if (snapshot.hasData) {
-                  return Text(
-                    snapshot.data!,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
+                  width: 500,
+                  height: 400,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20.0,
+                      mainAxisSpacing: 20.0,
+                      //padding: EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0), 
+                      children: [
+                        buildImage(context, 'assets/aqi.png',1 ),
+                        buildImage(context, 'assets/cf.png',2 ),
+                        buildImage(context, 'assets/help.png',3 ),
+                        buildImage(context, 'assets/weather.png',4 ),
+                      ],),
+                  ),),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      height: 150,
+                      child: InkWell(
+                          splashColor: Colors.white.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: ClipRRect(
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/Volunteer.png'),
+                                  fit: BoxFit.cover,),
+                                  borderRadius: BorderRadius.circular(8.0)),),
+                          ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Volunteer()),
+                          );
+                        },
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  );
-                  } else{ 
-                    return Text("");
-                    }
-                  },
-                 ),
-          ]
-          ,
+                    SizedBox(height: 20,),
+                     FutureBuilder<String>(
+                  future: getMsg(), // The asynchronous function
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator(); // Show a loader while waiting
+                    } else if (snapshot.hasError) {
+                      return Text(
+                        '',
+                        style: TextStyle(color: Colors.red, fontSize: 18),
+                      ); // Display an error message
+                    } else if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data!,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                        ),
+                        textAlign: TextAlign.center,
+                      );
+                      } else{ 
+                        return Text("");
+                        }
+                      },
+                     ),
+              ]
+              ,
+            ),
+          ),
         ),)
     );
   }

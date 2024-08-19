@@ -112,27 +112,30 @@ class LoginPage extends StatelessWidget {
           centerTitle: true,
         ),
       ),
+      backgroundColor: Colors.black,
       body: SingleChildScrollView(
+        
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text("Locality",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 controller: localitycontroller,
+                
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                       color: Color.fromARGB(255, 249, 161, 70),
                     )),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black))),
+                        borderSide: BorderSide(color: Colors.white))),
               ),
               const SizedBox(height: 16),
               const Text("SubLocality",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 keyboardType: TextInputType.streetAddress,
                 controller: sublocalitycontroller,
@@ -142,12 +145,12 @@ class LoginPage extends StatelessWidget {
                       color: Color.fromARGB(255, 249, 161, 70),
                     )),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black))),
+                        borderSide: BorderSide(color: Colors.white))),
               ),
               const SizedBox(height: 16),
               const Text("City",
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: citycontroller,
@@ -157,11 +160,11 @@ class LoginPage extends StatelessWidget {
                       color: Color.fromARGB(255, 249, 161, 70),
                     )),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black))),
+                        borderSide: BorderSide(color: Colors.white))),
               ),
               const SizedBox(height: 16),
               const Text("District",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: districtcontroller,
@@ -171,11 +174,11 @@ class LoginPage extends StatelessWidget {
                       color: Color.fromARGB(255, 249, 161, 70),
                     )),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black))),
+                        borderSide: BorderSide(color: Colors.white))),
               ),
               const SizedBox(height: 16),
               const Text("State",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: statecontroller,
@@ -184,11 +187,11 @@ class LoginPage extends StatelessWidget {
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 249, 161, 70))),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black))),
+                        borderSide: BorderSide(color: Colors.white))),
               ),
               const SizedBox(height: 16),
               const Text("PinCode(6-digit)",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 keyboardType: TextInputType.number,
                 controller: postcodecontroller,
@@ -197,7 +200,7 @@ class LoginPage extends StatelessWidget {
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 249, 161, 70))),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black))),
+                        borderSide: BorderSide(color: Colors.white))),
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(6)
@@ -215,7 +218,7 @@ class LoginPage extends StatelessWidget {
                 height: 16,
               ),
               const Text("Mobile Number(firestation authority)",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 keyboardType: const TextInputType.numberWithOptions(),
                 controller: numbercontroller,
@@ -235,7 +238,7 @@ class LoginPage extends StatelessWidget {
                 height: 16,
               ),
               const Text("Telephone Number",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 keyboardType: const TextInputType.numberWithOptions(),
                 controller: telephonecontroller,
