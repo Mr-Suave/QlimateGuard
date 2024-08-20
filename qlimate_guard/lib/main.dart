@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const  MyHomePage(),
+      home: const  SplaschScreen(),
     );
   }
 }
@@ -43,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Future<String> getMsg() async{
-    const apiKey = "AIzaSyBmDlDCNzWM2G2HIsAW5liJBx56FlO4_LY";
+    const apiKey = "AIzaSyAVEA2E4RjmRb8Pc7wAcIrKGZK8lK9y7HA";
     final model = GenerativeModel(model: "gemini-1.5-flash", apiKey: apiKey);
     final content = [Content.text("Give a one line quote on climate awareness, safety, disaster management, the quote should be consise and attractive. Dont format it, just give plaintext enclosed in double quotes")];
     final response = await model.generateContent(content);

@@ -513,14 +513,14 @@ class _GetHelpUi extends State<GetHelpUi> {
                 ),
                 SizedBox(
                   height: 150,
-                  width: 200,
+                  width: 400,
                   child: Card(
                     child: Column(
                       children: [
                         Text(_speechToText.isListening
                             ? "Listening..."
                             : _speechEnabled
-                                ? "Tap Microphone"
+                                ? "Try saying \"call ambulance\" or \"call fire engine\" "
                                 : "Speech is not available"),
                         const SizedBox(height: 16),
                         FloatingActionButton(

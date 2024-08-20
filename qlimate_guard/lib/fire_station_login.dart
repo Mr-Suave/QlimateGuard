@@ -124,7 +124,9 @@ class LoginPage extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
                 controller: localitycontroller,
-                
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -137,8 +139,12 @@ class LoginPage extends StatelessWidget {
               const Text("SubLocality",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color:Colors.white)),
               TextFormField(
+                
                 keyboardType: TextInputType.streetAddress,
                 controller: sublocalitycontroller,
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -154,6 +160,9 @@ class LoginPage extends StatelessWidget {
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: citycontroller,
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -168,6 +177,9 @@ class LoginPage extends StatelessWidget {
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: districtcontroller,
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -182,6 +194,9 @@ class LoginPage extends StatelessWidget {
               TextFormField(
                 keyboardType: TextInputType.name,
                 controller: statecontroller,
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -195,6 +210,9 @@ class LoginPage extends StatelessWidget {
               TextFormField(
                 keyboardType: TextInputType.number,
                 controller: postcodecontroller,
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -222,6 +240,9 @@ class LoginPage extends StatelessWidget {
               TextFormField(
                 keyboardType: const TextInputType.numberWithOptions(),
                 controller: numbercontroller,
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -242,6 +263,9 @@ class LoginPage extends StatelessWidget {
               TextFormField(
                 keyboardType: const TextInputType.numberWithOptions(),
                 controller: telephonecontroller,
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(

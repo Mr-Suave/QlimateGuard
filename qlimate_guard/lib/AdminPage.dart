@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 
 class AdminPage extends StatefulWidget {
   final String username;
@@ -132,6 +133,7 @@ class _AdminPageState extends State<AdminPage> {
                                     CollectionReference alerts =FirebaseFirestore.instance.collection('Alerts');
                                     DateTime now=DateTime.now();
                                     Map<String,String> data={
+                                      'Places': '${_cityController.text}',
                                       'Content': '->  $_disasterSelected in ${_cityController.text}. Be safe and help the needy. ~ ${now.year}-${now.month}-${now.day} ${now.hour}:${now.minute}:${now.second}'
                                     };
                                     try{
@@ -192,8 +194,10 @@ class _AdminPageState extends State<AdminPage> {
                                   final alertId = gotAlert.id;
                                   final alertContent =
                                       gotAlert["Content"] ?? "No text inside the alert";
+                                  final city = gotAlert["Places"] ?? "Maps not found";
                                   return ListTile(
                                     title: Text(alertContent),
+                                    
                                     trailing: IconButton(
                                         onPressed: () {
                                           _deleteAlert(alertId);

@@ -311,7 +311,7 @@ class ResultScreen extends StatelessWidget{
               ),
               SizedBox(height: 20.0,),
               Text(
-                '$result kg CO2',
+                '${result.toStringAsFixed(2)} kg CO2',
                 style: TextStyle(
                   fontSize: 32, 
                   color: Colors.green),
@@ -333,8 +333,10 @@ class ResultScreen extends StatelessWidget{
                 } else if (snapshot.hasError) {
                   return Text(
                     ' Something Went wrong :// Check your internet connection and get back. ',
+                    
                     style: TextStyle(color: Colors.red, fontSize: 15),
-                  ); // Display an error message
+                  );
+                  print(snapshot.error.toString()); // Display an error message
                 } else if (snapshot.hasData) {
                   return Text(
                     snapshot.data!,

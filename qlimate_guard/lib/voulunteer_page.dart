@@ -2,6 +2,7 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
+import 'package:url_launcher/url_launcher.dart';
 
 class VoulunteerPage extends StatefulWidget {
   final String username;
@@ -17,7 +18,6 @@ class _VoulunteerPageState extends State<VoulunteerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(70),
           child: AppBar(
@@ -76,8 +76,10 @@ class _VoulunteerPageState extends State<VoulunteerPage> {
                                   final alertId = gotAlert.id;
                                   final alertContent =
                                       gotAlert["Content"] ?? "No text inside the alert";
+                                  final city = gotAlert["Places"] ?? "Maps not found";
                                   return ListTile(
                                     title: Text(alertContent),
+                                    
                                   );
                                 });
                           }),

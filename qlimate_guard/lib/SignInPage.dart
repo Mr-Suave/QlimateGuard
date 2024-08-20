@@ -314,7 +314,7 @@ class _SigninPageState extends State<SigninPage> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            const Text('Already has an account? ',style: TextStyle(color: Colors.black),),
+                                            const Text('Already have an account? ',style: TextStyle(color: Colors.black),),
                                             TextButton(onPressed: (){
                                               Navigator.push(context, MaterialPageRoute(builder: (context) => const Volunteerlogin()));
                                             }, child:const  Text('Login',style: TextStyle(color: Colors.blue,decoration: TextDecoration.underline),))    
